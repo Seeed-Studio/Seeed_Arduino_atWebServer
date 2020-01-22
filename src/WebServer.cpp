@@ -27,9 +27,10 @@
 #include "WiFiServer.h"
 #include "WiFiClient.h"
 #include "WebServer.h"
-#include "FS.h"
+#include "Seeed_FS.h"
 #include "detail/RequestHandlersImpl.h"
-#include "mbedtls/md5.h"
+#include "Seeed_mbedtls.h"
+
 
 
 static const char AUTHORIZATION_HEADER[] = "Authorization";
@@ -223,7 +224,7 @@ String WebServer::_getRandomHexString() {
   char buffer[33];  // buffer to hold 32 Hex Digit + /0
   int i;
   for(i = 0; i < 4; i++) {
-    sprintf (buffer + (i*8), "%08x", esp_random());
+    sprintf (buffer + (i*8), "%08x", rand());
   }
   return String(buffer);
 }

@@ -1,5 +1,4 @@
 #include "mimetable.h"
-#include "pgmspace.h"
 
 namespace mime
 {
