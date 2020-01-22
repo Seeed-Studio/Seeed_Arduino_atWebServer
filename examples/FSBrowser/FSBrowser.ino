@@ -26,18 +26,12 @@
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
+#include "Seeed_FS.h"
 
-#define FILESYSTEM SPIFFS
+#define FILESYSTEM SD
 // You only need to format the filesystem once
 #define FORMAT_FILESYSTEM false
 #define DBG_OUTPUT_PORT Serial
-
-#if FILESYSTEM == FFat
-#include <FFat.h>
-#endif
-#if FILESYSTEM == SPIFFS
-#include <SPIFFS.h>
-#endif
 
 const char* ssid = "wifi-ssid";
 const char* password = "wifi-password";
@@ -51,11 +45,11 @@ String formatBytes(size_t bytes) {
   if (bytes < 1024) {
     return String(bytes) + "B";
   } else if (bytes < (1024 * 1024)) {
-    return String(bytes / 1024.0) + "KB";
+    return String(bytes / 1024) + "KB";
   } else if (bytes < (1024 * 1024 * 1024)) {
-    return String(bytes / 1024.0 / 1024.0) + "MB";
+    return String(bytes / 1024 / 1024) + "MB";
   } else {
-    return String(bytes / 1024.0 / 1024.0 / 1024.0) + "GB";
+    return String(bytes / 1024 / 1024 / 1024) + "GB";
   }
 }
 
@@ -218,25 +212,31 @@ void handleFileList() {
 
 void setup(void) {
   DBG_OUTPUT_PORT.begin(115200);
-  DBG_OUTPUT_PORT.print("\n");
+  DBG_OUTPUT_PORT.print("\r\n");
+  /*
   DBG_OUTPUT_PORT.setDebugOutput(true);
   if (FORMAT_FILESYSTEM) FILESYSTEM.format();
-  FILESYSTEM.begin();
+  */
+  DBG_OUTPUT_PORT.print("Initializing FILESYSTEM...");
+  if (! FILESYSTEM.begin(SDCARD_SS_PIN, SDCARD_SPI)) {
+    DBG_OUTPUT_PORT.print(" failed!\r\n");
+    for(;;);
+  }
+  DBG_OUTPUT_PORT.print(" done\r\n");
   {
       File root = FILESYSTEM.open("/");
       File file = root.openNextFile();
       while(file){
           String fileName = file.name();
           size_t fileSize = file.size();
-          DBG_OUTPUT_PORT.printf("FS File: %s, size: %s\n", fileName.c_str(), formatBytes(fileSize).c_str());
+          DBG_OUTPUT_PORT.printf("FS File: %s, size: %s\r\n", fileName.c_str(), formatBytes(fileSize).c_str());
           file = root.openNextFile();
       }
-      DBG_OUTPUT_PORT.printf("\n");
+      DBG_OUTPUT_PORT.printf("\r\n");
   }
 
-
   //WIFI INIT
-  DBG_OUTPUT_PORT.printf("Connecting to %s\n", ssid);
+  DBG_OUTPUT_PORT.printf("Connecting to %s\r\n", ssid);
   if (String(WiFi.SSID()) != String(ssid)) {
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);

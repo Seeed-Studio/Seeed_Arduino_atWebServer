@@ -32,8 +32,7 @@
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
-#include <SPI.h>
-#include <SD.h>
+#include <Seeed_FS.h>
 
 #define DBG_OUTPUT_PORT Serial
 
@@ -303,9 +302,12 @@ void setup(void) {
   server.begin();
   DBG_OUTPUT_PORT.println("HTTP server started");
 
-  if (SD.begin(SS)) {
-    DBG_OUTPUT_PORT.println("SD Card initialized.");
+  DBG_OUTPUT_PORT.print("Initializing SD Card...");
+  if (SD.begin(SDCARD_SS_PIN, SDCARD_SPI)) {
+    DBG_OUTPUT_PORT.print(" done\r\n");
     hasSD = true;
+  } else {
+    DBG_OUTPUT_PORT.print(" failed!\r\n");
   }
 }
 
