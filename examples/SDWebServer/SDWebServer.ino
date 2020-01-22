@@ -1,6 +1,7 @@
 /*
-  SDWebServer - Example WebServer with SD Card backend for esp8266
+  SDWebServer - Example WebServer with SD Card backend for GroveRescreen
 
+  Copyright (C) 2019  Seeed Technology Co.,Ltd.
   Copyright (c) 2015 Hristo Gochkov. All rights reserved.
   This file is part of the WebServer library for Arduino environment.
 
@@ -18,7 +19,7 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-  Have a FAT Formatted SD Card connected to the SPI port of the ESP8266
+  Have a FAT Formatted SD Card connected to the SPI port of the GroveRescreen
   The web root is the SD Card root folder
   File extensions with more than 3 charecters are not supported by the SD Library
   File Names longer than 8 charecters will be truncated by the SD library, so keep filenames shorter
@@ -27,7 +28,7 @@
   upload the contents of SdRoot to the root of the SDcard and access the editor by going to http://esp8266sd.local/edit
 
 */
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
@@ -186,7 +187,7 @@ void handleCreate() {
   if (path.indexOf('.') > 0) {
     File file = SD.open((char *)path.c_str(), FILE_WRITE);
     if (file) {
-      file.write(0);
+      file.write((uint8_t)0);
       file.close();
     }
   } else {
@@ -260,7 +261,7 @@ void handleNotFound() {
 
 void setup(void) {
   DBG_OUTPUT_PORT.begin(115200);
-  DBG_OUTPUT_PORT.setDebugOutput(true);
+  // DBG_OUTPUT_PORT.setDebugOutput(true);
   DBG_OUTPUT_PORT.print("\n");
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);

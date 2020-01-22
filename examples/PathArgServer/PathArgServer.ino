@@ -1,4 +1,4 @@
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
@@ -9,7 +9,7 @@ const char *password = "........";
 WebServer server(80);
 
 void setup(void) {
-  Serial.begin(9600);
+  Serial.begin(115200);
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.println("");

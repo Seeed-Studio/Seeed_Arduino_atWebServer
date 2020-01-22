@@ -28,10 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
-#include <ESPmDNS.h>
+#include <Seeed_atmDNS.h>
 
 const char *ssid = "YourSSIDHere";
 const char *password = "YourPSKHere";

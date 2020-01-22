@@ -4,9 +4,8 @@
   This example code is in the public domain.
 */
 
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <ESPmDNS.h>
-#include <ArduinoOTA.h>
 #include <WebServer.h>
 
 const char* ssid = "........";
@@ -28,9 +27,7 @@ void setup() {
   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
     Serial.println("WiFi Connect Failed! Rebooting...");
     delay(1000);
-    ESP.restart();
   }
-  ArduinoOTA.begin();
 
   server.on("/", []() {
     if (!server.authenticate(www_username, www_password))
@@ -54,6 +51,5 @@ void setup() {
 }
 
 void loop() {
-  ArduinoOTA.handle();
   server.handleClient();
 }

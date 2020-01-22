@@ -22,7 +22,7 @@
   access the sample web page at http://esp32fs.local
   edit the page by going to http://esp32fs.local/edit
 */
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
@@ -286,7 +286,7 @@ void setup(void) {
   //get heap status, analog input value and all GPIO statuses in one json call
   server.on("/all", HTTP_GET, []() {
     String json = "{";
-    json += "\"heap\":" + String(ESP.getFreeHeap());
+    json += "\"heap\":" + String(get_free_heap());
     json += ", \"analog\":" + String(analogRead(A0));
     json += ", \"gpio\":" + String((uint32_t)(0));
     json += "}";

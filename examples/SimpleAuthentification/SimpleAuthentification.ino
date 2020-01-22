@@ -1,4 +1,4 @@
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
 
