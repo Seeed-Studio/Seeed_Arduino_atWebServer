@@ -20,7 +20,7 @@
 */
 
 #include <Arduino.h>
-#include <esp32-hal-log.h>
+#include <esp_hal_log.h>
 #include "WiFiServer.h"
 #include "WiFiClient.h"
 #include "WebServer.h"
