@@ -28,6 +28,7 @@ before_install:
   - installLibrary Seeed-Studio/Seeed_Arduino_atWiFi
   - installLibrary Seeed-Studio/Seeed_Arduino_atmDNS
   - installLibrary Seeed-Studio/Seeed_Arduino_mbedtls
+  - installLibrary Seeed-Studio/Seeed_Arduino_SFUD
   - installLibrary Seeed-Studio/Seeed_Arduino_FS
   - installLibrary Seeed-Studio/Seeed_Arduino_atWebServer
   # - buildExampleSketch() { arduino-cli compile --warnings all --fqbn $BOARD $PWD/examples/$1 --verbose | sed -re 's,/home/travis/\.arduino15/packages,\$PKG,g'; }
