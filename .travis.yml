@@ -52,12 +52,12 @@ script:
         buildExampleSketch HttpBasicAuth;
     - |
         buildExampleSketch SimpleAuthentification;
-    - |
-        buildExampleSketch SDWebServer;
+    #- |
+    #    buildExampleSketch SDWebServer;
     - |
         buildExampleSketch PathArgServer;
-    - |
-        buildExampleSketch FSBrowser;
+    #- |
+    #    buildExampleSketch FSBrowser;
 
 notifications:
   webhooks:
